@@ -1,10 +1,14 @@
-<!DOCTYPE html>
 <html>
 <head>
-    <title>@yield('title','app')</title>
+    <title>@yield('title', 'App') - L</title>
+    <link rel="stylesheet" href="/css/app.css">
 </head>
 <body>
-@yield('content')
+@include('layout._header')
 
+<div class="container">
+    @yield('content')
+</div>
+@include('layout._footer')
 </body>
 </html>
