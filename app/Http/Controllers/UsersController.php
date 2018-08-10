@@ -31,6 +31,7 @@ class UsersController extends Controller
         ]);
 
         session()->flash("success","you register is ok");
+        Auth::login($user);
         return redirect()->route("users.show",[$user]);
     }
 }
