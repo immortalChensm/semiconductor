@@ -6,6 +6,14 @@ use Illuminate\Http\Request;
 use Auth;
 class SessionController extends Controller
 {
+    public function __construct()
+    {
+        //该控制器仅仅允许未登录的用户访问create方法
+        $this->middleware("guest",[
+            "only"=>["create"]
+        ]);
+    }
+
     //
     public function create()
     {
@@ -21,7 +29,8 @@ class SessionController extends Controller
 
         if(Auth::attempt($credentials,$request->has("remember"))){
             session()->flash("success","login success");
-            return redirect()->route("users.show",[Auth::user()]);
+            //return redirect()->route("users.show",[Auth::user()]);
+            return redirect()->intended(route("users.show",[Auth::user()]));
         }else{
             session()->flash("danger","your password or email account is error");
             return redirect()->back();
